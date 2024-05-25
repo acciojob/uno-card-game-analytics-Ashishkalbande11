@@ -14,6 +14,10 @@ public class ScoreDataRepository {
 
     public void storeScore(Score score) {
     	//your code goes here
+        String playerName = score.getPlayerName();
+        List<Score> scores= playerScores.getOrDefault(playerName,new ArrayList<>());
+        scores.add(score);
+        playerScores.put(playerName, scores);
     }
 
     public List<Score> getScoresByPlayer(String playerName) {
@@ -23,6 +27,10 @@ public class ScoreDataRepository {
 
     public List<Score> getAllScores() {
     	//your code goes here
+        List<Score> allScores = new ArrayList<>();
+        for(List<Score> scoreList : playerScores.values()){
+            allScores.addAll(scoreList);
+        }
         return allScores;
     }
 }
